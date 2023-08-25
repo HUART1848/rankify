@@ -4,7 +4,7 @@
 
   import {artists} from "./stores";
 
-  artists.update((value) => value = ["A", "B"]);
+  artists.update((value) => value = ["Drake", "Mozart", "Daft Punk", "100 Gecs"]);
 </script>
 
 <main>
