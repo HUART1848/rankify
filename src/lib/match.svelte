@@ -1,7 +1,8 @@
 <script lang="ts">
     import { artists } from "../stores";
+    import Results from "./results.svelte";
     
-    let currentArtists: String[];
+    let currentArtists: string[];
     let currentRound: number;
     let currentMatches: number[][];
 
@@ -29,7 +30,7 @@
         currentRound += 1;
     }
 
-    function getRoundArtists(round: number):String[] {
+    function roundArtists(round: number):String[] {
         let ret = currentMatches[round].map((i) => currentArtists[i]);
         return ret;
     }
@@ -37,18 +38,14 @@
 
 <match>  
     {#if currentRound < currentMatches.length - 1}
-        <button on:click={() => nextMatch(0)}>A</button>
-        <button on:click={() => nextMatch(1)}>B</button>
+        <button on:click={() => nextMatch(0)}>{roundArtists(currentRound)[0]}</button>
+        <button on:click={() => nextMatch(1)}>{roundArtists(currentRound)[1]}</button>
 
         <p>Round {currentRound+1} of {currentMatches.length}</p>
-        <p>Current match : {getRoundArtists(currentRound)}</p>
+        <p>Current match : {roundArtists(currentRound)}</p>
     {:else}
-        <p>Résultat:</p>
+        <Results artists={currentArtists} scores={scores}></Results>
     {/if}
-
-    {#each scores as s, index}
-        <p>{currentArtists[index]} : {s}</p>
-    {/each}
 </match>
 
 <style>
